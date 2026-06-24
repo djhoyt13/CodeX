@@ -35,24 +35,12 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-On Windows PowerShell, activate the environment with:
-
-```powershell
-.venv\Scripts\Activate.ps1
-```
-
 Create an API key in the OpenAI platform, then set it in the terminal. Do not commit the key.
 
 macOS or Linux:
 
 ```bash
 export OPENAI_API_KEY="your-key-here"
-```
-
-Windows PowerShell:
-
-```powershell
-$env:OPENAI_API_KEY="your-key-here"
 ```
 
 ## Run the demonstrations
