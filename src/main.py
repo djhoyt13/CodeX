@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 
 from agents import Agent, Runner
+from dotenv import load_dotenv
 
 from src.tools import calculate, get_project_fact
 
@@ -41,6 +42,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
+    load_dotenv()
     args = parse_args()
     if not os.getenv("OPENAI_API_KEY"):
         raise SystemExit(
