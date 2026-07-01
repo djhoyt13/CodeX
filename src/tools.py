@@ -94,6 +94,8 @@ def convert_units(value: float | str, from_unit: str, to_unit: str) -> float:
         raise ValueError(f"Unsupported unit conversion: {from_unit} to {to_unit}")
 
     numeric_value = float(value)
+    if from_canonical == to_canonical:
+        return numeric_value
     if from_canonical == "miles" and to_canonical == "km":
         return numeric_value * _MILES_TO_KM
     if from_canonical == "km" and to_canonical == "miles":

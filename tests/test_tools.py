@@ -28,6 +28,11 @@ def test_convert_units_accepts_unit_aliases() -> None:
     assert convert_units(5, "miles", "kilometers") == pytest.approx(8.0467, rel=1e-4)
 
 
+def test_convert_units_returns_value_for_same_unit() -> None:
+    assert convert_units(5, "miles", "miles") == 5
+    assert convert_units(10, "km", "kilometers") == 10
+
+
 def test_convert_units_rejects_unsupported_conversion() -> None:
     with pytest.raises(ValueError, match="Unsupported unit conversion"):
         convert_units("100", "miles", "feet")
