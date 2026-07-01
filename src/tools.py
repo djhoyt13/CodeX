@@ -65,3 +65,46 @@ def get_project_fact(topic: str) -> str:
         if key in normalized or normalized in key:
             return fact
     return "Available topics: system prompt, AGENTS.md, skill, and tools."
+
+
+_MILES_TO_KM: Final = 1.60934
+
+_UNIT_ALIASES: Final = {
+    "mile": "miles",
+    "miles": "miles",
+    "mi": "miles",
+    "km": "km",
+    "kilometer": "km",
+    "kilometers": "km",
+    "kilometre": "km",
+    "kilometres": "km",
+}
+
+
+def _normalize_unit(unit: str) -> str | None:
+    """Map common unit names to canonical miles/km labels."""
+    return _UNIT_ALIASES.get(unit.strip().lower())
+
+
+def convert_units(value: float | str, from_unit: str, to_unit: str) -> float:
+    """Convert between miles and kilometers."""
+    from_canonical = _normalize_unit(from_unit)
+    to_canonical = _normalize_unit(to_unit)
+    if from_canonical is None or to_canonical is None:
+        raise ValueError(f"Unsupported unit conversion: {from_unit} to {to_unit}")
+
+    numeric_value = float(value)
+    if from_canonical == "miles" and to_canonical == "km":
+        return numeric_value * _MILES_TO_KM
+    if from_canonical == "km" and to_canonical == "miles":
+        return numeric_value / _MILES_TO_KM
+    raise ValueError(f"Unsupported unit conversion: {from_unit} to {to_unit}")
+
+
+@function_tool
+def convert(value: float, from_unit: str, to_unit: str) -> str:
+    """Convert a numeric value between miles and kilometers (supports aliases like mi and kilometers)."""
+    try:
+        return str(convert_units(value, from_unit, to_unit))
+    except ValueError as exc:
+        return f"Conversion error: {exc}"

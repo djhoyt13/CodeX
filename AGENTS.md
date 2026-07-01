@@ -31,3 +31,4 @@ Before proposing completion:
 ## Skills
 
 Use the `agent-project-review` skill when reviewing or extending the demo agent.
+Use the `add-runtime-tool` skill when adding a new runtime tool.

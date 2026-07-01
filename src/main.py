@@ -9,7 +9,7 @@ from pathlib import Path
 from agents import Agent, Runner
 from dotenv import load_dotenv
 
-from src.tools import calculate, get_project_fact
+from src.tools import calculate, convert, get_project_fact
 
 ROOT = Path(__file__).resolve().parents[1]
 SYSTEM_PROMPT_PATH = ROOT / "prompts" / "system_prompt.md"
@@ -25,7 +25,7 @@ def build_agent() -> Agent:
     return Agent(
         name="Demo Guide",
         instructions=load_system_prompt(),
-        tools=[calculate, get_project_fact],
+        tools=[calculate, get_project_fact, convert],
     )
 
 

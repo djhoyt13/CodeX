@@ -14,7 +14,7 @@ A deliberately small Python project showing how four agent-building concepts fit
 ## How the agent loop works
 
 1. `src/main.py` loads `prompts/system_prompt.md`.
-2. It creates an `Agent` and registers two tools.
+2. It creates an `Agent` and registers three tools.
 3. `Runner.run_sync(...)` sends the user request and instructions to the model.
 4. The model either answers directly or requests a tool call.
 5. The SDK executes the selected Python tool and returns its result to the model.
@@ -24,6 +24,7 @@ The included tools are:
 
 - `calculate`: safely evaluates basic arithmetic.
 - `get_project_fact`: retrieves facts about the teaching project.
+- `convert`: converts values between miles and kilometers.
 
 ## Setup in Cursor
 
@@ -57,6 +58,12 @@ Force the project-fact tool to be used:
 python -m src.main "What is the difference between AGENTS.md and the system prompt in this project?"
 ```
 
+Force the unit-conversion tool to be used:
+
+```bash
+python -m src.main "Convert 5 miles to kilometers"
+```
+
 Ask something that needs no tool:
 
 ```bash
@@ -86,4 +93,4 @@ Use the agent-project-review skill to inspect this teaching project. Explain how
 
 ## Suggested next experiment
 
-Add a third runtime tool such as a local unit converter. Update the system prompt so the agent must use that tool for conversions, add deterministic tests, and use the Codex review skill to verify the separation of responsibilities.
+Use the `add-runtime-tool` skill to add a unit converter tool. Update the system prompt so the agent must use that tool for conversions, add deterministic tests, and use the `agent-project-review` skill to verify the separation of responsibilities.
